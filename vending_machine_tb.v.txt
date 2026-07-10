@@ -1,0 +1,99 @@
+`timescale 1ns / 1ps
+
+module vending_machine_tb;
+
+    reg clk;
+    reg rst;
+
+    reg sel_tea;
+    reg sel_coffee;
+    reg sel_juice;
+    reg sel_water;
+
+    reg coin_5;
+    reg coin_10;
+
+    wire dispense;
+    wire [4:0] change;
+
+    vending_machine uut (
+        .clk(clk),
+        .rst(rst),
+        .sel_tea(sel_tea),
+        .sel_coffee(sel_coffee),
+        .sel_juice(sel_juice),
+        .sel_water(sel_water),
+        .coin_5(coin_5),
+        .coin_10(coin_10),
+        .dispense(dispense),
+        .change(change)
+    );
+
+    //------------------------------------------------
+    // Clock Generation
+    //------------------------------------------------
+    initial
+        clk = 0;
+
+    always #5 clk = ~clk;
+
+    //------------------------------------------------
+    // Test Sequence
+    //------------------------------------------------
+    initial
+    begin
+
+        rst = 1;
+        sel_tea = 0;
+        sel_coffee = 0;
+        sel_juice = 0;
+        sel_water = 0;
+        coin_5 = 0;
+        coin_10 = 0;
+
+        #20 rst = 0;
+
+        //------------------------------------------------
+        // Buy Tea (₹10)
+        //------------------------------------------------
+        #10 sel_tea = 1;
+        #10 sel_tea = 0;
+
+        #10 coin_5 = 1;
+        #10 coin_5 = 0;
+
+        #10 coin_5 = 1;
+        #10 coin_5 = 0;
+
+        //------------------------------------------------
+        // Buy Juice (₹20)
+        //------------------------------------------------
+        #30 sel_juice = 1;
+        #10 sel_juice = 0;
+
+        #10 coin_10 = 1;
+        #10 coin_10 = 0;
+
+        #10 coin_10 = 1;
+        #10 coin_10 = 0;
+
+        //------------------------------------------------
+        // Buy Water (₹25)
+        //------------------------------------------------
+        #30 sel_water = 1;
+        #10 sel_water = 0;
+
+        #10 coin_10 = 1;
+        #10 coin_10 = 0;
+
+        #10 coin_10 = 1;
+        #10 coin_10 = 0;
+
+        #10 coin_5 = 1;
+        #10 coin_5 = 0;
+
+        #50 $finish;
+
+    end
+
+endmodule
