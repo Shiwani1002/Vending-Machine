@@ -77,10 +77,6 @@ Vending-Machine/
 ├── tb/
 │   └── vending_machine_tb.v
 │
-├── docs/
-│   ├── block_diagram.png
-│   └── fsm_diagram.png
-│
 ├── waveforms/
 │   └── simulation.png
 │
