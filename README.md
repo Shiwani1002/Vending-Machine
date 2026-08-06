@@ -77,8 +77,8 @@ Vending-Machine/
 ├── tb/
 │   └── vending_machine_tb.v
 │
-├── waveforms/
-│   └── simulation.png
+├── waveforms and outputs/
+│   └── as screenshot.png
 │
 ├── README.md
 └── LICENSE
